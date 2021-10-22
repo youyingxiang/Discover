@@ -8,7 +8,7 @@ Discover 是基于开发语言 `PHP7.3`，`Laravel` 框架开发。项目中采�
 * [spatie/laravel-enum](https://github.com/spatie/laravel-enum)
 * [yxx/laravel-quick](https://github.com/youyingxiang/laravel-quick)
 * [zgldh/qiniu-laravel-storage](https://github.com/overtrue/laravel-filesystem-qiniu)
-* 
+
 ### 1.1 适用场景
 生产加工羽绒，羽毛制品的厂家。
 
