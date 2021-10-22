@@ -8,16 +8,21 @@ Discover 是基于开发语言 `PHP7.3`，`Laravel` 框架开发。项目中采�
 * [spatie/laravel-enum](https://github.com/spatie/laravel-enum)
 * [yxx/laravel-quick](https://github.com/youyingxiang/laravel-quick)
 * [zgldh/qiniu-laravel-storage](https://github.com/overtrue/laravel-filesystem-qiniu)
+* 
 ### 1.1 适用场景
 生产加工羽绒，羽毛制品的厂家。
 
 ### 1.2 安装
 
-* [Gitee 地址](`git clone https://gitee.com/yxx2017/discover.git`)
+* [Github 地址](https://github.com/youyingxiang/Discover), [gitee 地址](https://gitee.com/yxx2017/discover)
 * 执行 `composer install`  
 * 将 `.env.example` 复制重命名为 `.env`, 并在 `.env` 设置数据库账号密码等信息。
 * 执行 `php artisan migrate` 生成表结构。
 * 执行 `php artisan db:seed --class=InitSeeder` 初始化数据库。
+
+### 1.3 技术交流
+
+QQ群：1129427935
 
 
 
