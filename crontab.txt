@@ -1,0 +1,1 @@
+* * * * * /usr/bin/php7.3 /var/www/html/wxy/current/artisan schedule:run >> /var/www/html/wxy/shared/storage/logs/crontab.log 2>&1

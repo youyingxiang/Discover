@@ -1,0 +1,75 @@
+<?php
+use PhpCsFixer\Finder;
+$header = <<<EOF
+// +----------------------------------------------------------------------
+// | erp
+// +----------------------------------------------------------------------
+// | Copyright (c) 2006~2020 erp All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( LICENSE-1.0.0 )
+// +----------------------------------------------------------------------
+// | Author: yxx <1365831278@qq.com>
+// +----------------------------------------------------------------------
+EOF;
+
+
+$finder = Finder::create()
+    ->notPath('bootstrap/cache')
+    ->notPath('storage')
+    ->notPath('node_modules')
+    ->notPath('vendor')
+    ->in(getcwd())
+    ->name('*.php')
+    ->notName('*.blade.php')
+    ->notName('index.php')
+    ->notName('server.php')
+    ->notName('_ide_helper.php')
+    ->ignoreDotFiles(true)
+    ->ignoreVCS(true);
+
+return PhpCsFixer\Config::create()
+    ->setUsingCache(false)
+    ->setRiskyAllowed(true)
+    ->setRules([
+        '@PSR2'                                 => true,
+        '@Symfony:risky'                        => true,
+        'array_syntax'                          => ['syntax' => 'short'],
+        'combine_consecutive_unsets'            => true,   //多个unset，合并成一个
+        // one should use PHPUnit methods to set up expected exception instead of annotations
+        'general_phpdoc_annotation_remove'      => ['expectedException', 'expectedExceptionMessage', 'expectedExceptionMessageRegExp'], //phpdocs中应该省略已经配置的注释
+        'header_comment'                        => array('header' => $header), //添加，替换或者删除 header 注释。
+        'heredoc_to_nowdoc'                     => true,     //删除配置中多余的空行和/或者空行。
+        'no_extra_consecutive_blank_lines'      => ['break', 'continue', 'extra', 'return', 'throw', 'use', 'parenthesis_brace_block', 'square_brace_block', 'curly_brace_block'],
+        'no_unreachable_default_argument_value' => false, //在函数参数中，不能有默认值在非缺省值之前的参数。有风险
+        'no_useless_else'                       => true,  //删除无用的eles
+        'no_useless_return'                     => true,  //删除函数末尾无用的return
+        'not_operator_with_successor_space'     => true,
+        'no_empty_phpdoc'                       => true,  // 删除空注释
+        'no_empty_statement'                    => true,  //删除多余的分号
+        'no_leading_namespace_whitespace'       => true,  //删除namespace声明行包含前导空格
+        'no_spaces_inside_parenthesis'          => true,  //删除括号后内两端的空格
+        'no_trailing_whitespace'                => true,  //删除非空白行末尾的空白
+        'no_unused_imports'                     => true,  //删除未使用的use语句
+        'no_whitespace_before_comma_in_array'   => true,  //删除数组声明中，每个逗号前的空格
+        'no_whitespace_in_blank_line'           => true,  //删除空白行末尾的空白
+        'ordered_class_elements'                => false, //class elements排序
+        'ordered_imports'                       => false, // use 排序
+        'phpdoc_add_missing_param_annotation'   => true,   //添加缺少的 Phpdoc @param参数
+        'phpdoc_trim'                           => true,
+        //   'phpdoc_trim_consecutive_blank_line_separation' => true, //删除在摘要之后和PHPDoc中的描述之后，多余的空行。
+        'phpdoc_order'                          => true,
+        'psr4'                                  => true,
+        // 'strict_comparison'                     => true,   //严格比较,会修改代码有风险
+        //'strict_param'                          => true,
+        'ternary_operator_spaces'               => true,  //标准化三元运算的格式
+        'ternary_to_null_coalescing'            => true,  //尽可能使用null合并运算符??。需要PHP> = 7.0。
+        'whitespace_after_comma_in_array'       => true, // 在数组声明中，每个逗号后必须有一个空格
+        'trim_array_spaces'                     => true,  //删除数组首或尾随单行空格
+        'align_multiline_comment'               => [                   //每行多行 DocComments 必须有一个星号（PSR-5），并且必须与第一行对齐。
+            'comment_type' => 'phpdocs_only'
+        ],
+        'array_indentation'                 => true,  //数组的每个元素必须缩进一次
+    ])
+
+    ->setFinder($finder)
+    ->setUsingCache(false);
