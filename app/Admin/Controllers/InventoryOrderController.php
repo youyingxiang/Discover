@@ -96,7 +96,7 @@ class InventoryOrderController extends OrderController
         $grid->column('cost_price', "成本单价");
         $grid->column('should_num', '库存数量');
         $grid->column("actual_num", "实盘数量")->if(function (Grid\Column $colum) use ($order) {
-            return $order->status === InventoryOrderModel::REVIEW_STATUS_OK;
+            return $order->review_status === InventoryOrderModel::REVIEW_STATUS_OK;
         })->display(function ($val) {
             return $val;
         })->else()->edit();
