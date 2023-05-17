@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/deploy.php
 /dcat-admin
 .env
 .env.backup

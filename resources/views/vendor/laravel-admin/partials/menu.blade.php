@@ -19,29 +19,27 @@
             </a>
         </li>
     @else
-        @if($item['id'] !== 2)
-            @php
-                $active = $builder->isActive($item);
-            @endphp
+        @php
+            $active = $builder->isActive($item);
+        @endphp
 
-            <li class="nav-item has-treeview {{ $active ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link">
-                    {!! str_repeat('&nbsp;', $layer) !!}<i class="fa {{ $item['icon'] ?: 'feather icon-circle' }}"></i>
-                    <p>
-                        {{ $builder->translate($item['title']) }}
-                        <i class="right fa fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    @foreach($item['children'] as $item)
-                        @php
-                            $item['layer'] = $layer + 1;
-                        @endphp
+        <li class="nav-item has-treeview {{ $active ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+                {!! str_repeat('&nbsp;', $layer) !!}<i class="fa {{ $item['icon'] ?: 'feather icon-circle' }}"></i>
+                <p>
+                    {{ $builder->translate($item['title']) }}
+                    <i class="right fa fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                @foreach($item['children'] as $item)
+                    @php
+                        $item['layer'] = $layer + 1;
+                    @endphp
 
-                        @include('admin::partials.menu', $item)
-                    @endforeach
-                </ul>
-            </li>
-        @endif
+                    @include('admin::partials.menu', $item)
+                @endforeach
+            </ul>
+        </li>
     @endif
 @endif

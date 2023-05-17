@@ -17,15 +17,15 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'hzerp');
+set('application', 'discover');
 
 // Project repository
-set('repository', 'git@gitee.com:yxx2017/hzerp.git');
+set('repository', 'https://github.com/youyingxiang/Discover.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
 
-//set('default_stage', 'master');
+set('default_stage', 'main');
 
 // Shared files/dirs between deploys
 add('shared_files', []);
@@ -40,31 +40,19 @@ set('writable_use_sudo', false);
 set('keep_releases', 5);
 set('default_stage', 'dev');
 
+
 host('dev')
     ->stage('dev')
-    ->hostname('118.178.125.242')
+    ->hostname('159.75.97.226')
     ->user('deployer')
     // 并指定公钥的位置
     ->identityFile('~/.ssh/deployerkey')
-    ->set('branch', 'master')
-    ->set('http_user', 'nginx')
-    ->forwardAgent(true)
-    ->multiplexing(true)
-    // 指定项目部署到服务器上的哪个目录
-    ->set('deploy_path', '/data/wwwroot/erp');
-
-host('yxx')
-    ->stage('yxx')
-    ->hostname('47.106.87.22')
-    ->user('deployer')
-    // 并指定公钥的位置
-    ->identityFile('~/.ssh/deployerkey')
-    ->set('branch', 'master')
+    ->set('branch', 'main')
     ->set('http_user', 'www-data')
     ->forwardAgent(true)
     ->multiplexing(true)
     // 指定项目部署到服务器上的哪个目录
-    ->set('deploy_path', '/data/wwwroot/erp');
+    ->set('deploy_path', '/data/wwwroot/discover');
 
 task('artisan:cache:clear', function () {
     return true;
@@ -78,15 +66,22 @@ task('artisan:route:cache', function () {
 task('artisan:view:cache', function () {
     return true;
 });
+
+set('bin/php', function () {
+    return '/usr/bin/php7.2';
+});
+set('bin/composer', function () {
+    return '/usr/bin/php7.2 /usr/local/bin/composer7';
+});
 task('opcache:reload', function () {
     cd('{{release_path}}');
     // run('{{bin/php}} artisan optimize && {{bin/composer}} dump-autoload --optimize && {{bin/php}} artisan config:clear');
-    run('{{bin/php}} artisan optimize && {{bin/composer}} dump-autoload --optimize && {{bin/php}} artisan migrate && {{bin/php}} artisan db:seed --class=InitSeeder');
+    run('{{bin/php}} artisan optimize && {{bin/composer}} dump-autoload --optimize');
     $ret = (int) run('ps -ef |grep -w laravels|grep -v grep|wc -l');
     if ($ret > 0) {
         run('sudo {{bin/php}} bin/laravels restart -d 1>/dev/null');
     } else {
-        run('sudo /usr/sbin/service php7.4-fpm reload');
+        run('sudo /usr/sbin/service php7.2-fpm reload');
     }
 });
 // Tasks
